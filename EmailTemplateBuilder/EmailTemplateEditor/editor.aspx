@@ -247,6 +247,23 @@
             //    console.error(data);
             //});
 
+            $.ajax({
+                async: true,
+                url: '/editor.aspx/SendEmail',
+                type: 'POST',
+                data: JSON.stringify({
+                    emailSender: {
+                        To: ['hassaan.khan@ibex.co','rabea.tahir@ibex.co'], Subject: 'Invition for the survey', IsHtmlBody: true, Body: body
+                    }
+                }),
+                contentType: "application/json; charset=utf-8"
+            }).done(function (data) {
+                debugger
+                console.log(data);
+            }).fail(function (data) {
+                debugger
+                console.error(data);
+            });
         }
 
          function closeDialog(event) {
