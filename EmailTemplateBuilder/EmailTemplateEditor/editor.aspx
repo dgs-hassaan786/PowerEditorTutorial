@@ -8,6 +8,72 @@
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="ckeditor/ckeditor.js"></script>
     <style>
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+        .form-inline {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+        .btn-success {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
         .overlay {
             position: fixed;
             top: 0;
@@ -18,45 +84,47 @@
             background-color: rgba(0,0,0,0.85);
             opacity: 0.5;
         }
-        .popup{
+
+        .popup {
             position: absolute;
             z-index: 99999;
-            margin-left: 50%!importamt;
+            margin-left: 50% !importamt;
             top: 10vh;
             width: 500px;
             margin-left: 70vh;
             left: 0;
         }
 
-  
-        .popup header {
-            padding: 2px 19px 3px;
-            background-color: #f6f6f8;
-            color: #222;
-            text-transform: uppercase;
-        }
 
-            .popup header .popupTitle {
-                font-size: 18px;
+            .popup header {
+                padding: 2px 19px 3px;
+                background-color: #f6f6f8;
                 color: #222;
+                text-transform: uppercase;
             }
 
-        .popup .popupInner {
-            padding: 30px 20px 50px;
-            height: 400px;
-            position: relative;
-            overflow-y: auto;
-            background-color:#fff;
-        }
-        .closeBtn{
-                float: right;
-                margin-top: 18px;
-                cursor:pointer;
+                .popup header .popupTitle {
+                    font-size: 18px;
+                    color: #222;
+                }
+
+            .popup .popupInner {
+                padding: 30px 20px 50px;
+                height: 400px;
+                position: relative;
+                overflow-y: auto;
+                background-color: #fff;
+            }
+
+        .closeBtn {
+            float: right;
+            margin-top: 18px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-  
+
     <form id="form1" runat="server">
         <div>
             <textarea name="editor1" id="editor1" rows="20" cols="80">
@@ -173,7 +241,7 @@
                
             </textarea>
         </div>
-        
+
     </form>
 
     <script type="text/javascript">
@@ -188,7 +256,8 @@
             exec: function (edt) {
                 //var objEditor = CKEDITOR.instances["editor1"];
                 //var body = objEditor.getData();
-                sendEmail(edt.getData());
+                openPopup();
+                //sendEmail(edt.getData());
             }
         });
 
@@ -199,8 +268,8 @@
             icon: 'icons/mail.png'
         });
         function openPopup() {
-            debugger;
-            console.log(body);
+            
+            //console.log(body);
             var div = `
                   <div class="overlay"></div>
                    <div class="popup">
@@ -210,9 +279,15 @@
                       </header>
                       <div class="popupInner">
                         <form>
-                            <input type="text" maxlength="100">
-                            <button>Add</button>
-                            <button>Save</button>
+                            <div class="form-inline">
+                                <input placeholder="email address" type="text" class="form-control" style="width: 200px !important;height: 20px!important;" maxlength="100">
+                                <button type="button" id="addToList" class="btn btn-primary" style="margin-left:10px">Add</button>
+                                <button type="button" class="btn btn-success" style="margin-left:10px">Save</button>
+                            </div>
+                            <br>
+                            <h3>Email Addresses</h3>
+                            <ul id="statusList">                                
+                            </ul>
                             <ul>
                             <li>
                             kghazanfar4@gmail.com
@@ -225,7 +300,19 @@
                       <div>
                   </div>
                </div>
-                `
+                `;
+
+            $('#addToList').on('click', function () {
+                debugger
+                    $('#statusList').html($('#statusList').html() + formatNewStatus(this.value));
+                    this.value = "";
+                    this.focus();                                    
+            });
+
+            $('#statusList').on("click", "li", function () {
+                alert('dynamicList');
+                $(this).remove();
+            })
             var $dialog = $(div);
             $dialog.appendTo('body');
         }
@@ -236,20 +323,20 @@
                 type: 'POST',
                 data: JSON.stringify({
                     emailSender: {
-                        To: ['hassaan.khan@ibex.co','rabea.tahir@ibex.co'], Subject: 'Invition for the survey', IsHtmlBody: true, Body: body
+                        To: ['hassaan.khan@ibex.co', 'rabea.tahir@ibex.co'], Subject: 'Invition for the survey', IsHtmlBody: true, Body: body
                     }
                 }),
                 contentType: "application/json; charset=utf-8"
             }).done(function (data) {
-                debugger
+                
                 console.log(data);
             }).fail(function (data) {
-                debugger
+                
                 console.error(data);
             });
         }
 
-         function closeDialog(event) {
+        function closeDialog(event) {
             $('.overlay').remove();
             $('.popup').remove();
             event.preventDefault();
