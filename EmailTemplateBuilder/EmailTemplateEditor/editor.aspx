@@ -7,10 +7,56 @@
     <title>CKEditor </title>
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="ckeditor/ckeditor.js"></script>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 9999;
+            background-color: rgba(0,0,0,0.85);
+            opacity: 0.5;
+        }
+        .popup{
+            position: absolute;
+            z-index: 99999;
+            margin-left: 50%!importamt;
+            top: 10vh;
+            width: 500px;
+            margin-left: 70vh;
+            left: 0;
+        }
+
+  
+        .popup header {
+            padding: 2px 19px 3px;
+            background-color: #f6f6f8;
+            color: #222;
+            text-transform: uppercase;
+        }
+
+            .popup header .popupTitle {
+                font-size: 18px;
+                color: #222;
+            }
+
+        .popup .popupInner {
+            padding: 30px 20px 50px;
+            height: 400px;
+            position: relative;
+            overflow-y: auto;
+            background-color:#fff;
+        }
+        .closeBtn{
+                float: right;
+                margin-top: 18px;
+                cursor:pointer;
+        }
+    </style>
 </head>
 <body>
-
-
+  
     <form id="form1" runat="server">
         <div>
             <textarea name="editor1" id="editor1" rows="20" cols="80">
@@ -127,6 +173,7 @@
                
             </textarea>
         </div>
+        
     </form>
 
     <script type="text/javascript">
@@ -153,28 +200,61 @@
         });
 
         function sendEmail(body) {
-
-            $.ajax({
-                async: true,
-                url: '/CKEditor.aspx/SendEmail',
-                type: 'POST',
-                data: JSON.stringify({
-                    emailSender: {
-                        To: ['hassaan.khan@ibex.co','rabea.tahir@ibex.co'], Subject: 'Invition for the survey', IsHtmlBody: true, Body: body
-                    }
-                }),
-                contentType: "application/json; charset=utf-8"
-            }).done(function (data) {
-                debugger
-                console.log(data);
-            }).fail(function (data) {
-                debugger
-                console.error(data);
-            });
+            debugger;
+            console.log(body);
+            var div = `
+                  <div class="overlay"></div>
+                   <div class="popup">
+                      <header>
+                         <a class="closeBtn" href="" onclick="closeDialog(event)">x</a>
+                         <h3 class="popupTitle">Email List</h3>
+                      </header>
+                      <div class="popupInner">
+                        <form>
+                            <input type="text" maxlength="100">
+                            <button>Add</button>
+                            <button>Save</button>
+                            <ul>
+                            <li>
+                            kghazanfar4@gmail.com
+                            </li>
+                             <li>
+                            kghazanfar4@gmail.com
+                            </li>
+                            </ul>
+                        </form>
+                      <div>
+                  </div>
+               </div>
+                `
+            var $dialog = $(div);
+            $dialog.appendTo('body');
+            //$.ajax({
+            //    async: true,
+            //    url: '/CKEditor.aspx/SendEmail',
+            //    type: 'POST',
+            //    data: JSON.stringify({
+            //        emailSender: {
+            //            To: ['hassaan.khan@ibex.co','rabea.tahir@ibex.co'], Subject: 'Invition for the survey', IsHtmlBody: true, Body: body
+            //        }
+            //    }),
+            //    contentType: "application/json; charset=utf-8"
+            //}).done(function (data) {
+            //    debugger
+            //    console.log(data);
+            //}).fail(function (data) {
+            //    debugger
+            //    console.error(data);
+            //});
 
         }
 
-
+         function closeDialog(event) {
+            $('.overlay').remove();
+            $('.popup').remove();
+            event.preventDefault();
+            return false;
+        }
 
 
     </script>
