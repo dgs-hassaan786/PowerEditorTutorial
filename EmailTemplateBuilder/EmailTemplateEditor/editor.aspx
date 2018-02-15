@@ -156,7 +156,7 @@
 
             $.ajax({
                 async: true,
-                url: '/CKEditor.aspx/SendEmail',
+                url: '/editor.aspx/SendEmail',
                 type: 'POST',
                 data: JSON.stringify({
                     emailSender: {
