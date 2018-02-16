@@ -17,8 +17,6 @@
         </header>
         <main>
 <form  class="formBlock" method="post" role="form">
-    <input name="__RequestVerificationToken" type="hidden" value="VpRvVFaXWLYMpgQpVAcG-sjGxcPSLALsT5FQcADJT_TG-EDSj0eeyXYnYDsgzXBNZibCxDpWUe8LoADOsVjBLpIkIe4BK5JwVmOIAThnNmw1">               
-    <input type="hidden" id="UserId" name="UserId" value="fe3681c0-2012-4b6a-9e89-754520adfbe5">
                 <div class="fieldBlock">
                     
                     <input class="medium" id="Username" name="Username" placeholder="User Name" type="text" value="">
@@ -59,18 +57,25 @@
             $('input, textarea').placeholder();
         });
         $('.formBlock').submit(function (e) {
-            e.preventDefault();
-            $.getJSON("JSON/user.json", function (data) {
-                var items = [];
-                console.log(data);
-                $.each(data, function (key, val) {
-                    if (key == $('#Username').val() && val == $('#Password').val()) {
-                        location.href = $(this).attr('editor.aspx');
-                    }
-                });
-                console.log('error');
-                $.notify("Incorrect username or password!", "error");
+            //e.preventDefault();
+            $.ajax({
+                async: true,
+                url: '/Login.aspx/userLogin',
+                type: 'POST',
+                data: JSON.stringify({
+                        user: $('#Username').val(), pass: $('#Password').val()
+                    
+                }),
+                contentType: "application/json; charset=utf-8"
+            }).done(function () {
+
+               // console.log(data);
+            }).fail(function (data) {
+
+                console.error(data);
             });
+          
+           
         });
 
     </script>
