@@ -79,8 +79,8 @@
 
             editor.ui.addRichCombo('tokens',
                 {
-                    label: "Please select placeholder",
-                    title: "Please select placeholder",
+                    label: "Select placeholder",
+                    title: "Select placeholder",
                     voiceLabel: "v",
                     className: 'cke_format',
                     multiSelect: false,
