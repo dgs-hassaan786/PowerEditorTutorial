@@ -136,6 +136,8 @@
             margin-top: 18px;
             cursor: pointer;
         }
+        .cke_panel_list{margin:0;padding:0;list-style-type:none;white-space:nowrap}
+
     </style>
 </head>
 <body>
@@ -262,6 +264,7 @@
     <script type="text/javascript">
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
+        var emailhtml = '';
         var editor = CKEDITOR.replace('editor1', {
             on: {
                 'instanceReady': function (evt) { evt.editor.execCommand('maximize'); }
@@ -272,6 +275,7 @@
                 //var objEditor = CKEDITOR.instances["editor1"];
                 //var body = objEditor.getData();
                 openPopup();
+                emailhtml = edt.getData();
                 //sendEmail(edt.getData());
             }
         });
@@ -346,6 +350,7 @@
         function sendEmail(emails,body) {
             $.ajax({
                 async: true,
+                crossDomain: true,
                 url: '/editor.aspx/SendEmail',
                 type: 'POST',
                 data: JSON.stringify({

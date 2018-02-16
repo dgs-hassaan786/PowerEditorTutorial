@@ -6,6 +6,14 @@
 <head>
     <title>Login</title>
     <link href="Content/Styles/login.css" rel="stylesheet" />
+    
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script src="Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="Scripts/jquery.scrollTo.min.js"></script>
+    <script src="Scripts/jquery.placeholder.min.js"></script>
+    <script src="Scripts/jquery.validate.js"></script>
+    <script src="Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="Scripts/notify.min.js"></script>
 </head>
 <body>
     <!--[if lt IE 7]>
@@ -16,15 +24,15 @@
             <img class="sbLogo" src="Content/img/sbLogo.png" alt="Survey Designer" />
         </header>
         <main>
-            <form class="formBlock" method="post" role="form">
+            <form runat="server" class="formBlock" method="post" role="form">
                 <div class="fieldBlock">
 
-                    <input runat="server" class="medium" id="Username" name="Username" placeholder="User Name" type="text" value="" />
+                    <asp:TextBox runat="server" class="medium" id="Username" name="Username" placeholder="User Name" type="text" value="" />
                     <p class="medium" style="margin-top: 10px"><span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span></p>
                 </div>
 
                 <div class="fieldBlock">
-                    <input runat="server" type="password" name="Password" id="Password" placeholder="Password" class="medium" />
+                    <asp:TextBox runat="server" type="password" name="Password" id="Password" placeholder="Password" class="medium" />
 
                 </div>
 
@@ -44,40 +52,15 @@
         </div>
     </section>
     <!-- Scripts Declaration will go in the bottom. -->
-    <script src="Scripts/jquery-3.3.1.js"></script>
-    <script src="Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="Scripts/jquery.scrollTo.min.js"></script>
-    <script src="Scripts/jquery.placeholder.min.js"></script>
-    <script src="Scripts/jquery.validate.js"></script>
-    <script src="Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="Scripts/notify.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $('input, textarea').placeholder();
+            //$('input, textarea').placeholder();
+  
         });
-        //$('.formBlock').submit(function (e) {
-        //    //e.preventDefault();
-        //    $.ajax({
-        //        async: true,
-        //        url: '/Login.aspx/userLogin',
-        //        type: 'POST',
-        //        data: JSON.stringify({
-        //            user: $('#Username').val(), pass: $('#Password').val()
+       
 
-        //        }),
-        //        contentType: "application/json; charset=utf-8"
-        //    }).done(function () {
-
-        //        // console.log(data);
-        //    }).fail(function (data) {
-
-        //        console.error(data);
-        //    });
-
-
-        //});
 
     </script>
 

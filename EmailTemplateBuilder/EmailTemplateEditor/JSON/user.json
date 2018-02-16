@@ -1,6 +1,22 @@
-﻿{
-  "user": "123",
-  "one": "123",
-  "two": "123",
-  "three": "123"
-}
+﻿[
+  {
+    "username": "haroon.ibrahim@ibex.co",
+    "password": "password123"
+  },
+  {
+    "username": "chad@ibex.co",
+    "password": "password123"
+  },
+  {
+    "username": "hassaan.khan@ibex.co",
+    "password": "password123"
+  },
+  {
+    "username": "ghazanfar.khan@ibex.co",
+    "password": "password123"
+  },
+  {
+    "username": "rabea.tahir@ibex.co",
+    "password": "password123"
+  }
+]
