@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>CKEditor </title>
+    <title>Template Builder </title>
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="ckeditor/ckeditor.js"></script>
     <style>

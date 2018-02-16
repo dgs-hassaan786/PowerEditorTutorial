@@ -25,6 +25,7 @@ namespace EmailTemplateEditor
                      defaults: new { id = RouteParameter.Optional }
                      );
             });
+            RouteConfig.RegisterRoutes(System.Web.Routing.RouteTable.Routes);
         }
     }
 }
