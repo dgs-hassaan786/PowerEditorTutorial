@@ -121,6 +121,8 @@
             margin-top: 18px;
             cursor: pointer;
         }
+        .cke_panel_list{margin:0;padding:0;list-style-type:none;white-space:nowrap}
+
     </style>
 </head>
 <body>
@@ -247,6 +249,7 @@
     <script type="text/javascript">
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
+        var emailhtml = '';
         var editor = CKEDITOR.replace('editor1', {
             on: {
                 'instanceReady': function (evt) { evt.editor.execCommand('maximize'); }
@@ -257,6 +260,7 @@
                 //var objEditor = CKEDITOR.instances["editor1"];
                 //var body = objEditor.getData();
                 openPopup();
+                emailhtml = edt.getData();
                 //sendEmail(edt.getData());
             }
         });
@@ -283,6 +287,7 @@
                                 <input placeholder="email address" type="text" class="form-control" style="width: 200px !important;height: 20px!important;" maxlength="100">
                                 <button type="button" id="addToList" class="btn btn-primary" style="margin-left:10px">Add</button>
                                 <button type="button" class="btn btn-success" style="margin-left:10px">Save</button>
+<button type="button" class="btn btn-success" style="margin-left:10px" onclick="sendEmail();">Send</button>
                             </div>
                             <br>
                             <h3>Email Addresses</h3>
@@ -316,9 +321,11 @@
             var $dialog = $(div);
             $dialog.appendTo('body');
         }
-        function sendEmail(body) {
+        function sendEmail() {
+            var body = emailhtml;
             $.ajax({
                 async: true,
+                crossDomain: true,
                 url: '/editor.aspx/SendEmail',
                 type: 'POST',
                 data: JSON.stringify({
