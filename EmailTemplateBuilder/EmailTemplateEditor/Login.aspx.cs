@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,11 @@ namespace EmailTemplateEditor
 {
     public partial class Login : System.Web.UI.Page
     {
+        public class UserInfo
+        {
+            public string username { get; set; }
+            public string password { get; set; }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -26,26 +32,29 @@ namespace EmailTemplateEditor
             }
         }
 
-        [WebMethod()]
-        //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static void UserLogin(string user,string pass)
-        {
-            StreamReader sr = File.OpenText("JSON/user.json");
-            {
-                String line = sr.ReadToEnd();
-
-            }
-            HttpContext.Current.Session["Login"] = true;
-        }
+      
 
         protected void BTNLogin_Click(object sender, EventArgs e)
         {
-            StreamReader sr = File.OpenText("JSON/user.json");
+            StreamReader sr = File.OpenText(Path.Combine(
+            HttpContext.Current.Server.MapPath("~/JSON"), "user.json"));
             {
                 String line = sr.ReadToEnd();
+                List<UserInfo> users = new List<UserInfo>();
+                users= JsonConvert.DeserializeObject<List<UserInfo>>(line);
+                UserInfo user = users.Where(x => x.username == Username.Text && x.password == Password.Text).FirstOrDefault();
+                if (user != null)
+                {
+                    HttpContext.Current.Session["Login"] = true;
+                    Response.Redirect("editor.aspx");
+                }
+                else
+                {
 
+                    HttpContext.Current.Session["Login"] = null;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "ErrorFunc", "$.notify('Invalid username or password','error');", true);
+                }
             }
-            HttpContext.Current.Session["Login"] = true;
         }
     }
 }
