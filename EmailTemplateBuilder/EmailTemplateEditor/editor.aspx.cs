@@ -11,11 +11,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace EmailTemplateEditor
-{
+{   
     public partial class Editor : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Login"] == null)
+            {
+                Response.Redirect("login");
+            }
 
         }
 

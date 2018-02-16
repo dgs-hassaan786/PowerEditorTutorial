@@ -24,8 +24,7 @@ namespace EmailTemplateEditor
                      routeTemplate: "api/{controller}/{action}/{id}",
                      defaults: new { id = RouteParameter.Optional }
                      );
-            });
-            RouteConfig.RegisterRoutes(System.Web.Routing.RouteTable.Routes);
+            });            
         }
     }
 }
