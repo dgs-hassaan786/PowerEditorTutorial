@@ -270,10 +270,13 @@
                 'instanceReady': function (evt) { evt.editor.execCommand('maximize'); }
             }
         });
+
+        var body = ''; //objEditor.getData();
         editor.addCommand("sendEmailCommand", {
             exec: function (edt) {
                 //var objEditor = CKEDITOR.instances["editor1"];
                 //var body = objEditor.getData();
+                body =  editor.getData();
                 openPopup();
                 emailhtml = edt.getData();
                 //sendEmail(edt.getData());
@@ -299,7 +302,7 @@
                             <div class="form-inline">
                                 <input id="emailTxt" placeholder="email address" type="text" class="form-control" style="width: 200px !important;height: 20px!important;" maxlength="100">
                                 <button type="button" id="addBtn" onclick="addEmail(event)"  class ="btn btn-primary" style="margin-left:10px">Add</button>
-                                <button type="button" id="saveBtn" onclick="sendEmailList(event)" class ="btn btn-success" style="margin-left:10px">Save</button>
+                                <button type="button" id="saveBtn" onclick="sendEmailList(event)" class ="btn btn-success" style="margin-left:10px">Send</button>
                             </div>
                             <br>
                             <h3>Email Addresses</h3>
@@ -341,7 +344,7 @@
             $('ul#statusList li').each(function (i) {
                 emails.push($(this).find('span').first().text().trim()); // This is your rel value
             });
-            var body = objEditor.getData();
+            
             sendEmail(emails, body);
         }
         function removeEmail(elem) {

@@ -37,7 +37,8 @@ namespace EmailTemplateEditor
                         SmtpServer.Port = 587;
                         SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
                         SmtpServer.EnableSsl = true;
-                        SmtpServer.Send(mail);
+                        //SmtpServer.UseDefaultCredentials = true;
+                        SmtpServer.Send(mail);   
                     }
                 }
 
