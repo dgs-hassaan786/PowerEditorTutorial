@@ -23,7 +23,7 @@ namespace EmailTemplateEditor
 
             if(Session["Login"] != null)
             {
-                Response.Redirect("templatebuilder");
+                Response.Redirect("templatedesigner");
             }
 
             if (IsPostBack)
@@ -42,11 +42,11 @@ namespace EmailTemplateEditor
                 String line = sr.ReadToEnd();
                 List<UserInfo> users = new List<UserInfo>();
                 users= JsonConvert.DeserializeObject<List<UserInfo>>(line);
-                UserInfo user = users.Where(x => x.username == Username.Text && x.password == Password.Text).FirstOrDefault();
+                UserInfo user = users.Where(x => x.username == txtUsername.Text && x.password == txtPassword.Text).FirstOrDefault();
                 if (user != null)
                 {
                     HttpContext.Current.Session["Login"] = true;
-                    Response.Redirect("editor.aspx");
+                    Response.Redirect("templatedesigner");
                 }
                 else
                 {

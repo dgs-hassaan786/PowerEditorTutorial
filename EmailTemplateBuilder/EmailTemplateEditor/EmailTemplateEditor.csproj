@@ -272,6 +272,7 @@
     <Content Include="ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="JSON\user.json" />
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Content\img\bg.jpg" />
     <Content Include="Content\img\copyright.png" />

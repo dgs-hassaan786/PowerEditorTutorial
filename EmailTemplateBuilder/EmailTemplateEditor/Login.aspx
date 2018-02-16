@@ -27,12 +27,12 @@
             <form runat="server" class="formBlock" method="post" role="form">
                 <div class="fieldBlock">
 
-                    <asp:TextBox runat="server" class="medium" id="Username" name="Username" placeholder="User Name" type="text" value="" />
+                    <asp:TextBox runat="server" class="medium" id="txtUsername" name="txtUsername" placeholder="User Name" type="text" />
                     <p class="medium" style="margin-top: 10px"><span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span></p>
                 </div>
 
                 <div class="fieldBlock">
-                    <asp:TextBox runat="server" type="password" name="Password" id="Password" placeholder="Password" class="medium" />
+                    <asp:TextBox runat="server" type="password" name="txtPassword" id="txtPassword" placeholder="Password" class="medium" />
 
                 </div>
 
