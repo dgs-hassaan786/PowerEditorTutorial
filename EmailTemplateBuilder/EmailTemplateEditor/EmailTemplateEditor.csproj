@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -269,6 +272,11 @@
     <Content Include="ckeditor\skins\moono-lisa\readme.md" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Content\img\bg.jpg" />
+    <Content Include="Content\img\copyright.png" />
+    <Content Include="Content\img\footer.png" />
+    <Content Include="Content\img\sbLogo.png" />
+    <Content Include="Login.aspx" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -587,9 +595,16 @@
     <Content Include="ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="ckeditor\styles.js" />
     <Content Include="Global.asax" />
+    <Content Include="Content\Styles\login.css" />
+    <Content Include="Scripts\jquery.placeholder.min.js" />
+    <Content Include="Scripts\jquery.scrollTo.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="editor.aspx.cs">
       <DependentUpon>editor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -601,6 +616,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ImageUploaderController.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
