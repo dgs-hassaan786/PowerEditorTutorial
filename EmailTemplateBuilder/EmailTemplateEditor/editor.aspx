@@ -8,6 +8,21 @@
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="ckeditor/ckeditor.js"></script>
     <style>
+        .list-group {
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .list-group-item {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: -1px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+
+     
         .form-control {
             display: block;
             width: 100%;
@@ -272,8 +287,6 @@
             icon: 'icons/mail.png'
         });
         function openPopup() {
-            
-            //console.log(body);
             var div = `
                   <div class="overlay"></div>
                    <div class="popup">
@@ -284,45 +297,57 @@
                       <div class="popupInner">
                         <form>
                             <div class="form-inline">
-                                <input placeholder="email address" type="text" class="form-control" style="width: 200px !important;height: 20px!important;" maxlength="100">
-                                <button type="button" id="addToList" class="btn btn-primary" style="margin-left:10px">Add</button>
-                                <button type="button" class="btn btn-success" style="margin-left:10px">Save</button>
-<button type="button" class="btn btn-success" style="margin-left:10px" onclick="sendEmail();">Send</button>
+                                <input id="emailTxt" placeholder="email address" type="text" class="form-control" style="width: 200px !important;height: 20px!important;" maxlength="100">
+                                <button type="button" id="addBtn" onclick="addEmail(event)"  class ="btn btn-primary" style="margin-left:10px">Add</button>
+                                <button type="button" id="saveBtn" onclick="sendEmailList(event)" class ="btn btn-success" style="margin-left:10px">Save</button>
                             </div>
                             <br>
                             <h3>Email Addresses</h3>
-                            <ul id="statusList">                                
-                            </ul>
-                            <ul>
-                            <li>
-                            kghazanfar4@gmail.com
-                            </li>
-                             <li>
-                            kghazanfar4@gmail.com
-                            </li>
+                            <ul class="list-group" id="statusList">
                             </ul>
                         </form>
                       <div>
                   </div>
                </div>
                 `;
-
-            $('#addToList').on('click', function () {
-                debugger
-                    $('#statusList').html($('#statusList').html() + formatNewStatus(this.value));
-                    this.value = "";
-                    this.focus();                                    
-            });
-
-            $('#statusList').on("click", "li", function () {
-                alert('dynamicList');
-                $(this).remove();
-            })
             var $dialog = $(div);
             $dialog.appendTo('body');
         }
-        function sendEmail() {
-            var body = emailhtml;
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        function addEmail(event) {
+            var email = $('#emailTxt').val();
+            if (!validateEmail(email)) {
+                alert('Email not valid');
+                event.preventDefault();
+                return false;
+            }
+
+            var li = '<li class="list-group-item"><span>' + email + ' </span><span onclick="removeEmail(this)" style="cursor:pointer;float:right;">x</span></li>'
+            $('#statusList').append(li);
+
+            event.preventDefault();
+            return false;
+        }
+        function sendEmailList(event) {
+            var length = $('ul#statusList li').length;
+            if (!length) {
+                alert('No email found');
+                return;
+            }
+            var emails = [];
+            $('ul#statusList li').each(function (i) {
+                emails.push($(this).find('span').first().text().trim()); // This is your rel value
+            });
+            var body = objEditor.getData();
+            sendEmail(emails, body);
+        }
+        function removeEmail(elem) {
+            elem.closest("li").remove();
+        }
+        function sendEmail(emails,body) {
             $.ajax({
                 async: true,
                 crossDomain: true,
@@ -330,15 +355,15 @@
                 type: 'POST',
                 data: JSON.stringify({
                     emailSender: {
-                        To: ['hassaan.khan@ibex.co', 'rabea.tahir@ibex.co'], Subject: 'Invition for the survey', IsHtmlBody: true, Body: body
+                        To: emails, Subject: 'Invition for the survey', IsHtmlBody: true, Body: body
                     }
                 }),
                 contentType: "application/json; charset=utf-8"
             }).done(function (data) {
-                
+
                 console.log(data);
             }).fail(function (data) {
-                
+
                 console.error(data);
             });
         }
