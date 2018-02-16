@@ -6,13 +6,16 @@ using Microsoft.AspNet.FriendlyUrls;
 
 namespace EmailTemplateEditor
 {
+    using System.Linq;
     public static class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
             var settings = new FriendlyUrlSettings();
             settings.AutoRedirectMode = RedirectMode.Permanent;
+
             routes.EnableFriendlyUrls(settings);
+            routes.MapPageRoute("", "templatedesigner", "~/Editor.aspx");
         }
     }
 }

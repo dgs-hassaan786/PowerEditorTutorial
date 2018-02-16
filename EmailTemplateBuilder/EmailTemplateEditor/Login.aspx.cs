@@ -12,6 +12,16 @@ namespace EmailTemplateEditor
         protected void Page_Load(object sender, EventArgs e)
         {
 
+
+            if(Session["Login"] != null)
+            {
+                Response.Redirect("templatebuilder");
+            }
+
+            if (IsPostBack)
+            {
+                Session["Login"] = true;
+            }
         }
     }
 }
