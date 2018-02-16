@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head >
     <title>Login</title>
     <link href="Content/Styles/login.css" rel="stylesheet" />
 </head>
@@ -11,12 +11,12 @@
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <section id="loginForm" class="uicLoginWrapper" style="height:410px!important;">
+    <section id="loginForm" class="uicLoginWrapper" style="height:305px!important;">
         <header>
            <img class="sbLogo" src="Content/img/sbLogo.png" alt="Survey Designer"/>
         </header>
         <main>
-<form action="editor.aspx" class="formBlock" method="post" role="form">
+<form  class="formBlock" method="post" role="form">
     <input name="__RequestVerificationToken" type="hidden" value="VpRvVFaXWLYMpgQpVAcG-sjGxcPSLALsT5FQcADJT_TG-EDSj0eeyXYnYDsgzXBNZibCxDpWUe8LoADOsVjBLpIkIe4BK5JwVmOIAThnNmw1">               
     <input type="hidden" id="UserId" name="UserId" value="fe3681c0-2012-4b6a-9e89-754520adfbe5">
                 <div class="fieldBlock">
@@ -24,25 +24,12 @@
                     <input class="medium" id="Username" name="Username" placeholder="User Name" type="text" value="">
                     <p class="medium" style="margin-top:10px"><span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span></p>
                 </div>
+           
                 <div class="fieldBlock">
-                    <select name="Role" id="Role" class="medium" style="width:100%;height:35px;">
-                        <option value="Global" selected="">
-                            Global
-                        </option>
-                        <option value="Market">
-                            Market
-                        </option>
-                    </select>
-                    
-                </div>
-                <div class="fieldBlock">
-                    <input type="text" name="Market" id="Market" value="UK" class="medium">
+                    <input type="password" name="Password" id="Password" placeholder="Password" class="medium">
 
                 </div>
-                <div class="fieldBlock">
-                    <input type="text" name="DefaultLanguage" id="DefaultLanguage" class="medium" value="en-gb">
-
-                </div>
+                
                 <div class="fieldBlock">
                     
                 </div>
@@ -64,11 +51,26 @@
     <script src="Scripts/jquery.placeholder.min.js"></script>
     <script src="Scripts/jquery.validate.js"></script>
     <script src="Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="Scripts/notify.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
 
             $('input, textarea').placeholder();
+        });
+        $('.formBlock').submit(function (e) {
+            e.preventDefault();
+            $.getJSON("JSON/user.json", function (data) {
+                var items = [];
+                console.log(data);
+                $.each(data, function (key, val) {
+                    if (key == $('#Username').val() && val == $('#Password').val()) {
+                        location.href = $(this).attr('editor.aspx');
+                    }
+                });
+                console.log('error');
+                $.notify("Incorrect username or password!", "error");
+            });
         });
 
     </script>
