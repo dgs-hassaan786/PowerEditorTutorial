@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head >
+<head>
     <title>Login</title>
     <link href="Content/Styles/login.css" rel="stylesheet" />
 </head>
@@ -11,34 +11,35 @@
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <section id="loginForm" class="uicLoginWrapper" style="height:305px!important;">
+    <section id="loginForm" class="uicLoginWrapper" style="height: 305px!important;">
         <header>
-           <img class="sbLogo" src="Content/img/sbLogo.png" alt="Survey Designer"/>
+            <img class="sbLogo" src="Content/img/sbLogo.png" alt="Survey Designer" />
         </header>
         <main>
-<form  class="formBlock" method="post" role="form">
+            <form class="formBlock" method="post" role="form">
                 <div class="fieldBlock">
-                    
-                    <input class="medium" id="Username" name="Username" placeholder="User Name" type="text" value="">
-                    <p class="medium" style="margin-top:10px"><span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span></p>
+
+                    <input runat="server" class="medium" id="Username" name="Username" placeholder="User Name" type="text" value="" />
+                    <p class="medium" style="margin-top: 10px"><span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span></p>
                 </div>
-           
+
                 <div class="fieldBlock">
-                    <input type="password" name="Password" id="Password" placeholder="Password" class="medium">
+                    <input runat="server" type="password" name="Password" id="Password" placeholder="Password" class="medium" />
 
                 </div>
-                
+
                 <div class="fieldBlock">
-                    
                 </div>
                 <div class="controlBtns">
-                    
-                    <input type="submit" value="Log in" class="btn">
+                    <asp:Button runat="server" Text="Log in" CssClass="btn" OnClick="BTNLogin_Click"  />
+                    <%--<input runat="server" type="submit" value="Log in" class="btn" />--%>
                 </div>
-</form>        </main>
-        <div class="copyrights" style="float:right; position:relative; top:-5px; font-size:13px;">
+            </form>
+        </main>
+        <div class="copyrights" style="float: right; position: relative; top: -5px; font-size: 13px;">
             <div class="cprights">
-                <p>Powered by: <img src="Content/img/copyright.png" alt="2018 Powered by iSky."/></p>
+                <p>Powered by:
+                    <img src="Content/img/copyright.png" alt="2018 Powered by iSky." /></p>
             </div>
         </div>
     </section>
@@ -56,27 +57,27 @@
 
             $('input, textarea').placeholder();
         });
-        $('.formBlock').submit(function (e) {
-            //e.preventDefault();
-            $.ajax({
-                async: true,
-                url: '/Login.aspx/userLogin',
-                type: 'POST',
-                data: JSON.stringify({
-                        user: $('#Username').val(), pass: $('#Password').val()
-                    
-                }),
-                contentType: "application/json; charset=utf-8"
-            }).done(function () {
+        //$('.formBlock').submit(function (e) {
+        //    //e.preventDefault();
+        //    $.ajax({
+        //        async: true,
+        //        url: '/Login.aspx/userLogin',
+        //        type: 'POST',
+        //        data: JSON.stringify({
+        //            user: $('#Username').val(), pass: $('#Password').val()
 
-               // console.log(data);
-            }).fail(function (data) {
+        //        }),
+        //        contentType: "application/json; charset=utf-8"
+        //    }).done(function () {
 
-                console.error(data);
-            });
-          
-           
-        });
+        //        // console.log(data);
+        //    }).fail(function (data) {
+
+        //        console.error(data);
+        //    });
+
+
+        //});
 
     </script>
 

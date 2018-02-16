@@ -28,12 +28,22 @@ namespace EmailTemplateEditor
 
         [WebMethod()]
         //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static void userLogin(string user,string pass)
+        public static void UserLogin(string user,string pass)
         {
             StreamReader sr = File.OpenText("JSON/user.json");
             {
                 String line = sr.ReadToEnd();
-               
+
+            }
+            HttpContext.Current.Session["Login"] = true;
+        }
+
+        protected void BTNLogin_Click(object sender, EventArgs e)
+        {
+            StreamReader sr = File.OpenText("JSON/user.json");
+            {
+                String line = sr.ReadToEnd();
+
             }
             HttpContext.Current.Session["Login"] = true;
         }
