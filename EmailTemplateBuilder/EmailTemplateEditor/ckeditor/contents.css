@@ -210,16 +210,26 @@ a > img {
     margin: 0;
     padding: 0;
     list-style-type: none;
-    white-space: nowrap
+    white-space: nowrap;
+
 }
     .cke_panel_list li {
-        color: #303030;
+        color: #7b7b7b;
         padding: 3px 10px;
-        border-bottom: 1px solid #d3d3d3;
-        margin-top: 10px;
+        border-bottom: 1px solid #e4e4e4;
+        margin: 5px 0 7px 0;
+        box-shadow: none;
     }
+
         .cke_panel_list li a {
             text-decoration: inherit;
             color: inherit;
             padding-top: 10px;
+            border: 0;
+            box-shadow: none;
         }
+            .cke_panel_list li a:hover, .cke_panel_list li a:focus, .cke_panel_list li a:active, .cke_panel_list li a:visited {
+                box-shadow: none;
+                border: 0;
+                outline: 0;
+            }
