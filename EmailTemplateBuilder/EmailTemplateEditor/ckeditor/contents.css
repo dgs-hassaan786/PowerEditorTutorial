@@ -206,3 +206,20 @@ a > img {
 	max-height: 1080px;
 	margin:0 auto;
 }
+.cke_panel_list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    white-space: nowrap
+}
+    .cke_panel_list li {
+        color: #303030;
+        padding: 3px 10px;
+        border-bottom: 1px solid #d3d3d3;
+        margin-top: 10px;
+    }
+        .cke_panel_list li a {
+            text-decoration: inherit;
+            color: inherit;
+            padding-top: 10px;
+        }
